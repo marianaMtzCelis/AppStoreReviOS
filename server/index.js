@@ -8,12 +8,13 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 // endpoint to get apps' general data
-app.get("/api/getAppData", (req, res) => {
+app.get("/api/getAppData", (_, res) => {
     const filePath = 'data/app-ids.json';
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-          console.error(err);
-          return;
+          res.status(500).json({
+              error: "Server error"
+          });
         }
         res.json({ message: JSON.parse(data) });
       });
@@ -58,14 +59,23 @@ app.get("/api/getAppReviews", (req, res) => {
             fs.writeFileSync(`data/${appId}.json`, jsonString);
             res.json({ message: JSON.parse(jsonString) });
         })
+        .catch((_) => {
+            res.status(502).json({
+                error: "App store API service error" // error with external API service
+            });
+        })
+        .catch((_) => {
+            res.status(500).json({
+                error: "Server error" // error in internal endpoint
+            });
+        })
 
     } else {
 
         // if endpoint was called less than 15 minutes ago, return cached reviews
-        fs.readFile(filePath, 'utf8', (err, data) => {
+        fs.readFile(`data/${appId}.json`, 'utf8', (err, data) => {
             if (err) {
-              console.error(err);
-              return;
+                res.status(500).json({error: "Server error"});
             }
             res.json({ message: JSON.parse(data) });
           });
