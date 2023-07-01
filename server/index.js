@@ -7,8 +7,16 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
+// endpoint to get apps' general data
+app.get("/api/getAppData", (req, res) => {
+    const filePath = 'data/app-ids.json';
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        res.json({ message: JSON.parse(data) });
+      });
 });
 
 // endpoint to get an app´s review list
