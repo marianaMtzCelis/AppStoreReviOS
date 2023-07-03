@@ -1,3 +1,5 @@
+// Parent component of the app
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import AboutMe from './components/AboutMe';

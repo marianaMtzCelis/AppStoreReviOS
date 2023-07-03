@@ -1,3 +1,5 @@
+// Component to display app reviews
+
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,6 +19,8 @@ import Rating from '@mui/material/Rating';
 import { Link } from 'react-router-dom'
 
 export default function Reviews() {
+
+  // Use useState hook to keep track of the chosen app to display and its reviews
   const [currentAppId, setCurrentAppId] = useState("981902595")
   const [appReviews, setAppReviews] = useState([])
   const [appData, setAppData] = useState({
@@ -27,6 +31,7 @@ export default function Reviews() {
   })
   const [errorInFetch, setErrorInFetch] = useState(false)
 
+  // fetch basic information of the apps to create the dropdown menu
   useEffect(() => {
     fetch(`http://localhost:3001/api/getAppData`)
     .then((res) => res.json())
@@ -36,6 +41,7 @@ export default function Reviews() {
       })
     }, []);
 
+  // fetch reviews of the chosen app
   useEffect(() => {
       fetch(`http://localhost:3001/api/getAppReviews?appId=${currentAppId}`)
       .then((res) => res.json())

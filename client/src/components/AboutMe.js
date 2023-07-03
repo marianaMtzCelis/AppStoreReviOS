@@ -1,3 +1,5 @@
+// Component to display information about myself
+
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
