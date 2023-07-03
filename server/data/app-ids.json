@@ -1,30 +1,24 @@
 {
-    "apps": [
-        {
-            "id": "1568134320",
-            "name": "Clever Parents",
-            "author": "Clever Inc."
-        },
-        {
-            "id": "1134802301",
+    "apps": {
+        "1134802301": {
             "name": "SchoolCafe",
             "author": "Primeroedge LLC"
         },
-        {
-            "id": "1384542200",
+        "1384542200": {
             "name": "Campus Student",
             "author": "Infinite Campus, Inc."
         },
-        {
-            "id": "1499403452",
+        "1499403452": {
             "name": "Artsonia",
             "author": "Artsonia LLC"
         },
-        {
-            "id": "981902595",
+        "981902595": {
             "name": "Here Comes the Bus",
             "author": "Synovia Solutions LLC"
+        },
+        "1568134320": {
+            "name": "Clever Parents",
+            "author": "Clever Inc."
         }
-    ]
-
+    }
 }

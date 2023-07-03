@@ -2,10 +2,11 @@
 import fetch from 'node-fetch'
 import express from 'express'
 import fs from 'fs';
-
-const PORT = process.env.PORT || 3001;
+import cors from 'cors'
 
 const app = express();
+
+app.use(cors());
 
 // endpoint to get apps' general data
 app.get("/api/getAppData", (_, res) => {
@@ -45,14 +46,20 @@ app.get("/api/getAppReviews", (req, res) => {
             let entriesList = [];
             for (const index in entries) {
                 const entry = entries[index];
-                let entryDictionary = {
-                    "reviewTitle": entry.title.label,
-                    "reviewContent": entry.content.label,
-                    "author": entry.author.name.label,
-                    "rating": entry["im:rating"].label,
-                    "date": entry.updated.label
-                };
-                entriesList.push(entryDictionary);
+                const reviewDateString = new Date(entry.updated.label);
+                const reviewYear = reviewDateString.getFullYear();
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                if (reviewYear == currentYear) {
+                    let entryDictionary = {
+                        "reviewTitle": entry.title.label,
+                        "reviewContent": entry.content.label,
+                        "author": entry.author.name.label,
+                        "rating": entry["im:rating"].label,
+                        "date": entry.updated.label
+                    };
+                    entriesList.push(entryDictionary);
+                }
             }
 
             const jsonString = JSON.stringify(entriesList);
